@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CYBER-DATA PRO HD</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+    --neon-blue:#00d4ff;
+    --neon-cyan:#00fff0;
+    --neon-purple:#7c3cff;
+    --bg-dark:#030712;
+    --glass:rgba(15,23,42,.75);
+    --white:#ffffff;
+    --green:#00ff9d;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Roboto',sans-serif;
+    min-height:100vh;
+    padding:40px;
+    color:#ffffff;
+    background:
+        radial-gradient(circle at top left,rgba(0,212,255,.25),transparent 35%),
+        radial-gradient(circle at bottom right,rgba(124,60,255,.25),transparent 35%),
+        linear-gradient(135deg,#020617,#050b16,#020617);
+    overflow-x:hidden;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+        linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+    background-size:40px 40px;
+    pointer-events:none;
+    opacity:.35;
+}
+
+h2{
+    font-family:'Orbitron',sans-serif;
+    color:#ffffff;
+    text-transform:uppercase;
+    letter-spacing:4px;
+    text-shadow:
+        0 0 10px var(--neon-blue),
+        0 0 25px var(--neon-blue),
+        0 0 50px var(--neon-purple);
+    margin-bottom:25px;
+    font-size:30px;
+}
+
+#input-section{
+    position:relative;
+    z-index:1;
+    padding:25px;
+    margin-bottom:25px;
+    border-radius:24px;
+    background:rgba(15,23,42,.72);
+    backdrop-filter:blur(18px);
+    border:1px solid rgba(0,212,255,.28);
+    box-shadow:
+        0 0 35px rgba(0,212,255,.15),
+        inset 0 0 25px rgba(255,255,255,.03);
+}
+
+textarea{
+    width:100%;
+    height:190px;
+    background:rgba(2,6,23,.82);
+    border:1px solid rgba(0,212,255,.35);
+    color:#ffffff;
+    border-radius:18px;
+    padding:20px;
+    font-family:monospace;
+    font-size:15px;
+    margin-bottom:22px;
+    transition:.3s;
+    outline:none;
+    resize:vertical;
+    box-shadow:inset 0 0 22px rgba(0,0,0,.55);
+}
+
+textarea::placeholder{
+    color:rgba(255,255,255,.45);
+}
+
+textarea:focus{
+    border-color:var(--neon-cyan);
+    box-shadow:
+        0 0 18px rgba(0,255,240,.45),
+        inset 0 0 22px rgba(0,0,0,.55);
+}
+
+.btn-group{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+    margin-bottom:12px;
+}
+
+button{
+    padding:14px 26px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:900;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    transition:.35s;
+    color:#ffffff;
+}
+
+button:nth-child(1){
+    background:linear-gradient(135deg,#0284c7,#00d4ff);
+    box-shadow:0 0 20px rgba(0,212,255,.28);
+}
+
+button:nth-child(2){
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.22);
+    color:#ffffff;
+}
+
+button:nth-child(3){
+    background:linear-gradient(135deg,#059669,#00ff9d);
+    box-shadow:0 0 20px rgba(0,255,157,.25);
+}
+
+button:hover{
+    transform:translateY(-3px) scale(1.03);
+    box-shadow:0 0 28px var(--neon-blue);
+}
+
+#copyStatus{
+    color:#ffffff;
+    font-weight:bold;
+    height:30px;
+    font-family:'Orbitron',sans-serif;
+    text-shadow:0 0 12px var(--green);
+}
+
+.table-container{
+    position:relative;
+    z-index:1;
+    background:rgba(15,23,42,.72);
+    backdrop-filter:blur(18px);
+    padding:25px;
+    border-radius:24px;
+    border:1px solid rgba(0,212,255,.28);
+    box-shadow:
+        0 0 40px rgba(0,212,255,.15),
+        inset 0 0 25px rgba(255,255,255,.03);
+    overflow-x:auto;
+}
+
+.table-container::-webkit-scrollbar{
+    height:12px;
+}
+
+.table-container::-webkit-scrollbar-track{
+    background:#020617;
+    border-radius:20px;
+}
+
+.table-container::-webkit-scrollbar-thumb{
+    background:linear-gradient(90deg,var(--neon-blue),var(--neon-purple));
+    border-radius:20px;
+}
+
+table{
+    border-collapse:collapse;
+    min-width:2400px;
+    width:100%;
+}
+
+th,
+td{
+    border:1px solid rgba(0,212,255,.22);
+    padding:15px;
+    text-align:center;
+}
+
+th{
+    background:linear-gradient(180deg,#0f172a,#020617);
+    color:#ffffff;
+    text-transform:uppercase;
+    font-family:'Orbitron',sans-serif;
+    font-size:11px;
+    letter-spacing:1px;
+    text-shadow:0 0 8px var(--neon-blue);
+}
+
+td{
+    font-size:15px;
+    color:#ffffff;
+    background:rgba(2,6,23,.45);
+}
+
+tr:hover td{
+    background:rgba(0,212,255,.12);
+}
+
+@media(max-width:768px){
+    body{
+        padding:22px;
+    }
+
+    h2{
+        font-size:22px;
+        text-align:center;
+    }
+
+    .btn-group{
+        flex-direction:column;
+    }
+
+    button{
+        width:100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<h2>TRANSAKSI LENGKAP REKAPAN</h2>
+
+<div id="input-section">
+    <textarea id="rawInput" placeholder="Paste transaksi lengkap disini..."></textarea>
+
+    <div class="btn-group">
+        <button onclick="processData()">SUBMIT DATA</button>
+        <button onclick="resetForm()">RESET</button>
+        <button onclick="copyTable()">SALIN HASIL KE DOC</button>
+    </div>
+
+    <div id="copyStatus"></div>
+</div>
+
+<div class="table-container">
+    <table id="resultTable">
+        <thead>
+            <tr>
+                <th rowspan="2">Kategori</th>
+                <th colspan="2">TOGEL</th>
+                <th colspan="2">TOTOMACAU 4D</th>
+                <th colspan="2">TOTOMACAU 5D</th>
+                <th colspan="2">KINGKONG 4D</th>
+                <th colspan="2">PRAGMATIC PLAY</th>
+                <th colspan="2">E-LOTTERY</th>
+                <th colspan="2">ARCADE</th>
+                <th colspan="2">POKER</th>
+                <th colspan="2">ESPORTS SPORTGG</th>
+                <th colspan="2">SPORTBOOK</th>
+                <th colspan="2">Streamspin</th>
+                <th colspan="2">Streamspin Gift</th>
+                <th colspan="2">TOTALAN LIVEGAMES</th>
+            </tr>
+
+            <tr>
+                <th>TURNOVER</th><th>W/L</th>
+                <th>TURNOVER</th><th>W/L</th>
+                <th>TURNOVER</th><th>W/L</th>
+                <th>TURNOVER</th><th>W/L</th>
+                <th>TURNOVER</th><th>W/L</th>
+                <th>TURNOVER</th><th>W/L</th>
+                <th>TURNOVER</th><th>W/L</th>
+                <th>TURNOVER</th><th>W/L</th>
+                <th>TURNOVER</th><th>W/L</th>
+                <th>TURNOVER</th><th>W/L</th>
+                <th>TURNOVER</th><th>W/L</th>
+                <th>TURNOVER</th><th>W/L</th>
+                <th>TURNOVER</th><th>W/L</th>
+            </tr>
+        </thead>
+
+        <tbody id="tableBody">
+            <tr>
+                <td>Data Hasil</td>
+                <script>
+                    for(let i=0; i<26; i++) document.write('<td>0.00</td>');
+                </script>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+function processData() {
+    const raw = document.getElementById('rawInput').value;
+    const map = [
+        { key: "Toto", col: 0 },
+        { key: "TOTOMACAU 4D", col: 1 },
+        { key: "TOTOMACAU 5D", col: 2 },
+        { key: "KINGKONG", col: 3 },
+        { key: "Pragmatic", col: 4 },
+        { key: "Elottery", col: 5 },
+        { key: "Arcade", col: 6 },
+        { key: "poker", col: 7 },
+        { key: "Esports", col: 8 },
+        { key: "Sportsbook", col: 9 },
+        { key: "Streamspin", col: 10 },
+        { key: "Streamspin Gift", col: 11 },
+        { key: "Live Game", col: 12 }
+    ];
+
+    const cells = document.querySelectorAll('#tableBody td');
+
+    map.forEach(item => {
+        const regex = new RegExp(item.key + "[^\\d-]*([\\d,]+\\.\\d{2})[^%]*%[^\\d-]*(-?[\\d,]+\\.\\d{2})", "i");
+        const match = raw.match(regex);
+
+        if (match) {
+            let turnover = match[1];
+            let wlRaw = parseFloat(match[2].replace(/,/g, ''));
+            let wl = wlRaw === 0 ? "0.00" : (wlRaw * -1).toLocaleString(undefined, {minimumFractionDigits: 2});
+
+            cells[1 + (item.col * 2)].innerText = turnover;
+            cells[2 + (item.col * 2)].innerText = wl;
+        }
+    });
+}
+
+function resetForm() {
+    document.getElementById('rawInput').value = "";
+
+    const cells = document.querySelectorAll('#tableBody td');
+
+    for (let i = 1; i < cells.length; i++) {
+        cells[i].innerText = "0.00";
+    }
+}
+
+function copyTable() {
+    const cells = document.querySelectorAll('#tableBody td');
+    let textToCopy = "";
+
+    for (let i = 1; i < cells.length; i++) {
+        textToCopy += cells[i].innerText + (i < cells.length - 1 ? "\t" : "");
+    }
+
+    const tempArea = document.createElement("textarea");
+    tempArea.value = textToCopy;
+    document.body.appendChild(tempArea);
+    tempArea.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempArea);
+
+    const statusMsg = document.getElementById("copyStatus");
+    statusMsg.innerText = "✓ Data berhasil disalin!";
+
+    setTimeout(() => {
+        statusMsg.innerText = "";
+    }, 2000);
+}
+</script>
+
+</body>
+</html>
